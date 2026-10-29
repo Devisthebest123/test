@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15">
+  <rect width="1200" height="420" fill="#f0f1ee"/>
+  <!-- columns -->
+  <g fill="#0b0b0b">
+    <rect x="60" y="40" width="300" height="40"/>
+    <rect x="450" y="40" width="300" height="40"/>
+    <rect x="840" y="40" width="300" height="40"/>
+  </g>
+  <g fill="#f0f1ee" text-anchor="middle" font-weight="600" letter-spacing="1">
+    <text x="210" y="66">SENDER (browser)</text>
+    <text x="600" y="66">SOLANA (board)</text>
+    <text x="990" y="66">RECIPIENT (browser)</text>
+  </g>
+  <!-- lifelines -->
+  <g stroke="#0b0b0b" stroke-width="1" stroke-dasharray="3 5">
+    <line x1="210" y1="80" x2="210" y2="400"/>
+    <line x1="600" y1="80" x2="600" y2="400"/>
+    <line x1="990" y1="80" x2="990" y2="400"/>
+  </g>
+  <!-- sender steps -->
+  <g fill="#0b0b0b">
+    <text x="70" y="112">1  epk, esk  ← fresh X25519 keypair</text>
+    <text x="70" y="134">2  shared    ← X25519(esk, pk_recipient)</text>
+    <text x="70" y="156">3  key‖tag‖seed ← HKDF(shared)</text>
+    <text x="70" y="178">4  ct ← AEAD(key, pad(note), aad)</text>
+    <text x="70" y="200">5  stealth ← Ed25519(seed)   (if paying)</text>
+  </g>
+  <!-- arrow sender -> chain -->
+  <g stroke="#0b0b0b" stroke-width="2" fill="none">
+    <line x1="210" y1="226" x2="590" y2="226"/>
+    <polyline points="580,220 590,226 580,232"/>
+  </g>
+  <text x="400" y="218" text-anchor="middle" fill="#0b0b0b">tx: transfer(board, 0) · memo(PGN1‖epk‖tag‖nonce‖ct) · transfer(stealth, SOL)</text>
+  <!-- chain box -->
+  <rect x="505" y="246" width="190" height="56" fill="none" stroke="#0b0b0b" stroke-width="1.5"/>
+  <text x="600" y="268" text-anchor="middle" fill="#0b0b0b">signature, slot, time</text>
+  <text x="600" y="290" text-anchor="middle" fill="#0b0b0b">no recipient field</text>
+  <!-- arrow chain -> recipient (scan) -->
+  <g stroke="#0b0b0b" stroke-width="2" fill="none">
+    <line x1="980" y1="326" x2="610" y2="326"/>
+    <polyline points="620,320 610,326 620,332"/>
+  </g>
+  <text x="795" y="318" text-anchor="middle" fill="#0b0b0b">getSignaturesForAddress(board) → every memo, whole window</text>
+  <!-- recipient steps -->
+  <g fill="#0b0b0b">
+    <text x="850" y="358">6  for each drop: shared ← X25519(sk, epk)</text>
+    <text x="850" y="380">7  tag' ≟ tag  →  open(ct)  →  Ed25519(seed) → sweep</text>
+  </g>
+  <!-- observer -->
+  <text x="600" y="404" text-anchor="middle" fill="#0b0b0b" opacity="0.6">an observer sees: who paid, when, how much, 328/540/880 chars of base64 — and nothing else</text>
+</svg>

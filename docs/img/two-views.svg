@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" width="1200" height="440" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15">
+  <rect width="1200" height="440" fill="#f0f1ee"/>
+  <!-- left: everyone -->
+  <rect x="40" y="30" width="540" height="360" fill="none" stroke="#0b0b0b" stroke-width="1.5"/>
+  <rect x="40" y="30" width="540" height="40" fill="#0b0b0b"/>
+  <text x="310" y="56" text-anchor="middle" fill="#f0f1ee" font-weight="600" letter-spacing="1">WHAT EVERYONE SEES</text>
+  <g fill="#0b0b0b">
+    <text x="60" y="100">UTC       tag               bytes  payer</text>
+    <text x="60" y="126">18:12:10  ac4de5caf82ad50d  160    UrCy…Qgi1</text>
+    <text x="60" y="148">18:11:40  aa28c22cf31078f8  160    UrCy…Qgi1</text>
+    <text x="60" y="170">18:07:13  1b7f82ac1cd19a61  160    d1y4…ytzd</text>
+    <text x="60" y="192">18:06:14  edb34157aca2931b  160    7J9n…hJuN</text>
+  </g>
+  <g fill="#0b0b0b" opacity="0.6">
+    <text x="60" y="246">• which of these are notes and which are chaff</text>
+    <text x="60" y="268">• who any of them is for</text>
+    <text x="60" y="290">• what any of them says</text>
+    <text x="60" y="312">• whether two rows share a recipient</text>
+    <text x="60" y="350" font-weight="600" opacity="1">none of it is recoverable from these bytes</text>
+  </g>
+  <!-- right: recipient -->
+  <rect x="620" y="30" width="540" height="360" fill="none" stroke="#0b0b0b" stroke-width="1.5"/>
+  <rect x="620" y="30" width="540" height="40" fill="#0b0b0b"/>
+  <text x="890" y="56" text-anchor="middle" fill="#f0f1ee" font-weight="600" letter-spacing="1">WHAT ONE RECIPIENT SEES</text>
+  <g fill="#0b0b0b">
+    <text x="640" y="100">UTC       tag               bytes  status</text>
+    <rect x="636" y="112" width="508" height="20" fill="#0b0b0b"/>
+    <text x="640" y="126" fill="#f0f1ee">18:12:10  ac4de5caf82ad50d  160    FOR YOU</text>
+    <text x="640" y="148">18:11:40  aa28c22cf31078f8  160    —</text>
+    <text x="640" y="170">18:07:13  1b7f82ac1cd19a61  160    —</text>
+    <text x="640" y="192">18:06:14  edb34157aca2931b  160    —</text>
+  </g>
+  <g fill="#0b0b0b" opacity="0.6">
+    <text x="640" y="246">• same bytes, same request to the same node</text>
+    <text x="640" y="268">• tag recomputed locally with sk: one matches</text>
+    <text x="640" y="290">• that one decrypts; the other three stay noise</text>
+    <text x="640" y="312">• the node cannot tell which row lit up</text>
+    <text x="640" y="350" font-weight="600" opacity="1">the difference exists only in the recipient's browser</text>
+  </g>
+  <text x="600" y="424" text-anchor="middle" fill="#0b0b0b" opacity="0.6">rows are real drops from a local-validator test session; a payment drop is additionally visible as a third instruction in its transaction</text>
+</svg>

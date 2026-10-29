@@ -1,0 +1,234 @@
+@import 'tailwindcss';
+
+/*
+ * Paper-grey page, near-black ink, nothing else. Silkscreen for pixel
+ * headlines and section labels, Geist Mono for every other character.
+ * No radii, no shadows, no gradients: rules, blocks and dither only.
+ */
+:root {
+  --page: #f0f1ee;
+  --ink: #0b0b0b;
+  --ink-60: rgb(11 11 11 / 0.6);
+  --ink-40: rgb(11 11 11 / 0.4);
+  --ink-15: rgb(11 11 11 / 0.15);
+  --ink-08: rgb(11 11 11 / 0.08);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-ink: var(--ink);
+  --color-ink-60: var(--ink-60);
+  --color-ink-40: var(--ink-40);
+  --color-ink-15: var(--ink-15);
+  --color-ink-08: var(--ink-08);
+}
+
+@theme {
+  --font-pixel: 'Silkscreen', ui-monospace, monospace;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --text-hero: clamp(44px, 7.6vw, 128px);
+  --text-hero--line-height: 0.92;
+  --text-hero--letter-spacing: -0.02em;
+  --text-title: clamp(22px, 2.6vw, 38px);
+  --text-title--line-height: 1;
+  --text-lede: clamp(14px, 1.22vw, 18px);
+  --text-lede--line-height: 1.42;
+  --text-lede--letter-spacing: -0.01em;
+  --text-body: clamp(13px, 1.02vw, 15px);
+  --text-body--line-height: 1.5;
+  --text-ui: clamp(12px, 0.95vw, 14px);
+  --text-ui--line-height: 1;
+  --text-ui--letter-spacing: -0.01em;
+  --text-fine: 11px;
+  --text-fine--line-height: 1.4;
+  --text-fine--letter-spacing: 0.02em;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+html {
+  background: var(--page);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+  background: var(--page);
+}
+
+/* The pixel font must never be smoothed into grey edges. */
+.pixel {
+  font-family: var(--font-pixel);
+  font-weight: 700;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  text-transform: uppercase;
+}
+.pixel-light {
+  font-family: var(--font-pixel);
+  font-weight: 400;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  text-transform: uppercase;
+}
+
+/* Lines meet the page softly on the side that faces the copy. */
+.scan-fade {
+  mask-image: linear-gradient(to right, transparent 0, #000 9%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 9%);
+}
+@media (max-width: 767px) {
+  .scan-fade {
+    mask-image: linear-gradient(to bottom, transparent 0, #000 8%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 8%);
+  }
+}
+
+/* 2px checkerboard, the only texture we allow ourselves. */
+.dither {
+  background-image:
+    linear-gradient(45deg, var(--ink-08) 25%, transparent 25%, transparent 75%, var(--ink-08) 75%),
+    linear-gradient(45deg, var(--ink-08) 25%, transparent 25%, transparent 75%, var(--ink-08) 75%);
+  background-size: 4px 4px;
+  background-position:
+    0 0,
+    2px 2px;
+}
+
+/* Hairlines. Borders are always 1px ink, never grey. */
+.hairline {
+  border-color: var(--ink);
+}
+
+/* Inputs: square, paper-coloured, ink border, thick focus ring. */
+.field {
+  appearance: none;
+  border: 1px solid var(--ink);
+  background: var(--page);
+  color: var(--ink);
+  font: inherit;
+  border-radius: 0;
+  padding: 10px 12px;
+  width: 100%;
+  outline: none;
+}
+.field::placeholder {
+  color: var(--ink-40);
+}
+.field:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -1px;
+}
+.field[aria-invalid='true'] {
+  border-style: dashed;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: clamp(38px, 4.2vh, 44px);
+  padding: 0 clamp(16px, 1.4vw, 22px);
+  font-size: var(--text-ui);
+  letter-spacing: var(--text-ui--letter-spacing);
+  line-height: 1;
+  white-space: nowrap;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--page);
+  cursor: pointer;
+  transition: opacity 120ms;
+  border-radius: 0;
+}
+.btn:hover {
+  opacity: 0.85;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+}
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--page);
+  opacity: 1;
+}
+.btn-sm {
+  height: 30px;
+  padding: 0 12px;
+  font-size: var(--text-fine);
+}
+
+/* Terminal-ish link: underline on hover, offset like a typewriter rule. */
+.lnk {
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+.lnk:hover {
+  text-decoration-line: underline;
+}
+
+/* Block cursor. */
+.cursor::after {
+  content: '▮';
+  margin-left: 2px;
+  animation: blink 1.1s steps(1) infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Rows in the board light up by inverting, no colour needed. */
+.row-hit {
+  background: var(--ink);
+  color: var(--page);
+}
+.row-hit a {
+  color: inherit;
+}
+
+.rise {
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* Scanline sweep behind "scanning" states. */
+.sweep {
+  background-image: repeating-linear-gradient(to bottom, var(--ink-08) 0 1px, transparent 1px 3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .cursor::after {
+    animation: none;
+  }
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--page);
+}
